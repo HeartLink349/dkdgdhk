@@ -65,6 +65,24 @@
             animation: cardGlow 3s infinite alternate; 
         }
 
+        /* مربع الذكريات الجديد */
+        .memories-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 25px;
+            margin: 20px 0 40px 0;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-left: 4px solid var(--primary);
+            opacity: 0; transform: translateY(30px);
+            transition: 1s;
+        }
+        .memories-card.show { opacity: 1; transform: translateY(0); }
+        .memories-title { color: var(--gold); font-size: 22px; font-weight: 800; margin-bottom: 15px; display: block; }
+        .memories-text { font-size: 15px; line-height: 1.7; color: #eee; font-style: italic; }
+
         @keyframes cardGlow {
             from { box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 10px rgba(255, 77, 109, 0.1); }
             to { box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 25px rgba(255, 77, 109, 0.3); }
@@ -147,6 +165,13 @@
                 <div class="count-box"><span id="hours" class="count-num">0</span><span style="font-size:11px; opacity:0.6;">ساعة</span></div>
                 <div class="count-box"><span id="mins" class="count-num">0</span><span style="font-size:11px; opacity:0.6;">دقيقة</span></div>
                 <div class="count-box"><span id="secs" class="count-num">0</span><span style="font-size:11px; opacity:0.6;">ثانية</span></div>
+            </div>
+
+            <div class="memories-card scroll-reveal">
+                <span class="memories-title">ذكريات ✨</span>
+                <p class="memories-text">
+                    27/10 اول يوم اتقابلنا فيه كان يوم جميل اوي بنسبالي وكنت فرحانه اوي وكنت مطمنه وذكرياتنا كلها حلوه وهتفضل حلوه وانت احلي حاجه ف حياتي وهفضل معاك ف كل حاجه انت كل حاجه ليا واهم واحد عندي والله واغلي حد ف حياتي كلها وكل ذكريتنا هتفضل ف قلبي والله
+                </p>
             </div>
 
             <div class="music-bar">
@@ -294,12 +319,19 @@
         }
 
         function checkScroll() {
+            // كروت الصور
             document.querySelectorAll('.glass-card').forEach(card => {
                 const rect = card.getBoundingClientRect();
                 if(rect.top < window.innerHeight - 50) {
                     card.classList.add('show');
                 }
             });
+            // كارت الذكريات
+            const memCard = document.querySelector('.memories-card');
+            const memRect = memCard.getBoundingClientRect();
+            if(memRect.top < window.innerHeight - 50) {
+                memCard.classList.add('show');
+            }
         }
 
         document.getElementById('page-2').onscroll = checkScroll;
